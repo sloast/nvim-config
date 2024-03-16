@@ -40,6 +40,22 @@ local plugin_specs = {
   },
 
   {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup({
+          suggestion = {
+            auto_trigger = true,
+            keymap = {
+              accept_word = "<M-L>",
+            },
+          },
+        })
+      end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     event = { "BufRead", "BufNewFile" },
     config = function()
