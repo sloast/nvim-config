@@ -1,0 +1,2 @@
+autocmd BufEnter,FocusGained * checktime
+

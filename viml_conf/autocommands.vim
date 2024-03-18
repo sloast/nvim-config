@@ -25,6 +25,11 @@ augroup resume_cursor_position
   autocmd BufReadPost * call s:resume_cursor_position()
 augroup END
 
+augroup auto_update_buffer
+    autocmd!
+    autocmd FocusGained,BufEnter * checktime
+augroup END
+
 " Only resume last cursor position when there is no go-to-line command (something like '+23').
 function s:resume_cursor_position() abort
   if line("'\"") > 1 && line("'\"") <= line("$") && &ft !~# 'commit'
