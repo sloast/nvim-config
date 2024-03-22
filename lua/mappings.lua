@@ -12,8 +12,18 @@ keymap.set("i", "<c-u>", "<Esc>viwUea")
 keymap.set("i", "<c-t>", "<Esc>b~lea")
 
 -- Paste non-linewise text above or below current line, see https://stackoverflow.com/a/1346777/6064933
-keymap.set("n", "<leader>p", "m`o<ESC>p``", { desc = "paste below current line" })
-keymap.set("n", "<leader>P", "m`O<ESC>p``", { desc = "paste above current line" })
+keymap.set("n", "<leader>op", "m`o<ESC>p``", { desc = "paste below current line" })
+keymap.set("n", "<leader>OP", "m`O<ESC>p``", { desc = "paste above current line" })
+
+-- Copy and paste using system clipboard
+keymap.set("n", "<leader>y", '"+y', { desc = "copy to clipboard" })
+keymap.set("n", "<leader>Y", '"+yg_', { desc = "copy line to clipboard" })
+keymap.set("v", "<leader>y", '"+y', { desc = "copy to clipboard" })
+
+keymap.set("n", "<leader>p", '"+p', { desc = "paste from clipboard" })
+keymap.set("v", "<leader>p", '"+p', { desc = "paste from clipboard" })
+keymap.set("n", "<leader>P", '"+P', { desc = "paste from clipboard before" })
+keymap.set("v", "<leader>P", '"+P', { desc = "paste from clipboard before" })
 
 -- Shortcut for faster save and quit
 keymap.set("n", "<leader>w", "<cmd>update<cr>", { silent = true, desc = "save buffer" })
@@ -134,7 +144,9 @@ keymap.set("n", "<leader><space>", "<cmd>StripTrailingWhitespace<cr>", { desc = 
 keymap.set("n", "<leader>st", "<cmd>call utils#SynGroup()<cr>", { desc = "check syntax group" })
 
 -- Copy entire buffer.
-keymap.set("n", "<leader>y", "<cmd>%yank<cr>", { desc = "yank entire buffer" })
+-- keymap.set("n", "<leader>y", "<cmd>%yank<cr>", { desc = "yank entire buffer" })
+-- Select entire buffer.
+keymap.set("n", "<leader>a", "ggVG", { desc = "select entire buffer" })
 
 -- Toggle cursor column
 keymap.set("n", "<leader>cl", "<cmd>call utils#ToggleCursorCol()<cr>", { desc = "toggle cursor column" })
