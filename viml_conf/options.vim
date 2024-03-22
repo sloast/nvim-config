@@ -69,7 +69,7 @@ set wildmode=list:longest
 set scrolloff=3
 
 " Use mouse to select and resize windows, etc.
-set mouse=nic  " Enable mouse in several mode
+set mouse=a  " Enable mouse in all modes
 set mousemodel=popup  " Set the behaviour of mouse
 set mousescroll=ver:1,hor:0
 
