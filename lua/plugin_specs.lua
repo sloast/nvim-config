@@ -40,6 +40,13 @@ local plugin_specs = {
   },
 
   {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
+    end,
+  },
+
+  {
     "ziontee113/icon-picker.nvim",
     config = function()
         require("icon-picker").setup({ disable_legacy_commands = true })
