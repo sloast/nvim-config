@@ -31,7 +31,7 @@ local custom_attach = function(client, bufnr)
   map("n", "<C-]>", vim.lsp.buf.definition)
   map("n", "K", vim.lsp.buf.hover)
   map("n", "<C-k>", vim.lsp.buf.signature_help)
-  map("n", "<space>rn", vim.lsp.buf.rename, { desc = "varialbe rename" })
+  map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "varialbe rename" })
   map("n", "gr", vim.lsp.buf.references, { desc = "show references" })
   map("n", "[d", diagnostic.goto_prev, { desc = "previous diagnostic" })
   map("n", "]d", diagnostic.goto_next, { desc = "next diagnostic" })
@@ -213,6 +213,15 @@ if utils.executable("bash-language-server") then
     on_attach = custom_attach,
     capabilities = capabilities,
   }
+end
+
+if utils.executable("gopls") then
+  lspconfig.gopls.setup {
+    on_attach = custom_attach,
+  }
+  if utils.executable("golangci-lint-langserver") then
+    lspconfig.golangci_lint_ls.setup {}
+  end
 end
 
 if utils.executable("lua-language-server") then

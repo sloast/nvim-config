@@ -1,57 +1,88 @@
 local gs = require("gitsigns")
+gs.setup()
 
-gs.setup {
-  signs = {
-    add = { hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-    change = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-    delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-  },
-  word_diff = true,
-  on_attach = function(bufnr)
-    local function map(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
-    end
+-- gs.setup {
+--   signs = {
+--     add = { hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+--     change = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+--     delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+--     topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+--     changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+--     /*'signs.add.hl' is now deprecated, please define highlight 'GitSignsAdd' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'GitSignsAdd' })
+-- 'signs.add.linehl' is now deprecated, please define highlight 'GitSignsAddLn' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsAddLn', { link = 'GitSignsAddLn' })
+-- 'signs.add.numhl' is now deprecated, please define highlight 'GitSignsAddNr' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsAddNr', { link = 'GitSignsAddNr' })
+-- 'signs.change.hl' is now deprecated, please define highlight 'GitSignsChange' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'GitSignsChange' })
+-- 'signs.change.linehl' is now deprecated, please define highlight 'GitSignsChangeLn' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsChangeLn', { link = 'GitSignsChangeLn' })
+-- 'signs.change.numhl' is now deprecated, please define highlight 'GitSignsChangeNr' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { link = 'GitSignsChangeNr' })
+-- 'signs.changedelete.hl' is now deprecated, please define highlight 'GitSignsChangedelete' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'GitSignsChange' })
+-- 'signs.changedelete.linehl' is now deprecated, please define highlight 'GitSignsChangedeleteLn' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsChangedeleteLn', { link = 'GitSignsChangeLn' })
+-- 'signs.changedelete.numhl' is now deprecated, please define highlight 'GitSignsChangedeleteNr' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { link = 'GitSignsChangeNr' })
+-- 'signs.delete.hl' is now deprecated, please define highlight 'GitSignsDelete' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'GitSignsDelete' })
+-- 'signs.delete.linehl' is now deprecated, please define highlight 'GitSignsDeleteLn' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', { link = 'GitSignsDeleteLn' })
+-- 'signs.delete.numhl' is now deprecated, please define highlight 'GitSignsDeleteNr' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { link = 'GitSignsDeleteNr' })
+-- 'signs.topdelete.hl' is now deprecated, please define highlight 'GitSignsTopdelete' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'GitSignsDelete' })
+-- 'signs.topdelete.linehl' is now deprecated, please define highlight 'GitSignsTopdeleteLn' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsTopdeleteLn', { link = 'GitSignsDeleteLn' })
+-- 'signs.topdelete.numhl' is now deprecated, please define highlight 'GitSignsTopdeleteNr' e.g:
+--   vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { link = 'GitSignsDeleteNr' })*/
+--   },
+--   word_diff = true,
+--   on_attach = function(bufnr)
+--     local function map(mode, l, r, opts)
+--       opts = opts or {}
+--       opts.buffer = bufnr
+--       vim.keymap.set(mode, l, r, opts)
+--     end
 
-    -- Navigation
-    map("n", "]c", function()
-      if vim.wo.diff then
-        return "]c"
-      end
-      vim.schedule(function()
-        gs.next_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true, desc = "next hunk" })
+--     -- Navigation
+--     map("n", "]c", function()
+--       if vim.wo.diff then
+--         return "]c"
+--       end
+--       vim.schedule(function()
+--         gs.next_hunk()
+--       end)
+--       return "<Ignore>"
+--     end, { expr = true, desc = "next hunk" })
 
-    map("n", "[c", function()
-      if vim.wo.diff then
-        return "[c"
-      end
-      vim.schedule(function()
-        gs.prev_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true, desc = "previous hunk" })
+--     map("n", "[c", function()
+--       if vim.wo.diff then
+--         return "[c"
+--       end
+--       vim.schedule(function()
+--         gs.prev_hunk()
+--       end)
+--       return "<Ignore>"
+--     end, { expr = true, desc = "previous hunk" })
 
-    -- Actions
-    map("n", "<leader>hp", gs.preview_hunk)
-    map("n", "<leader>hb", function()
-      gs.blame_line { full = true }
-    end)
-  end,
-}
+--     -- Actions
+--     map("n", "<leader>hp", gs.preview_hunk)
+--     map("n", "<leader>hb", function()
+--       gs.blame_line { full = true }
+--     end)
+--   end,
+-- }
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  pattern = "*",
-  callback = function()
-    vim.cmd [[
-      hi GitSignsChangeInline gui=reverse
-      hi GitSignsAddInline gui=reverse
-      hi GitSignsDeleteInline gui=reverse
-    ]]
-  end
-})
+-- vim.api.nvim_create_autocmd('ColorScheme', {
+--   pattern = "*",
+--   callback = function()
+--     vim.cmd [[
+--       hi GitSignsChangeInline gui=reverse
+--       hi GitSignsAddInline gui=reverse
+--       hi GitSignsDeleteInline gui=reverse
+--     ]]
+--   end
+-- })

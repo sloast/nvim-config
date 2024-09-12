@@ -62,6 +62,7 @@ local plugin_specs = {
   {
       "zbirenbaum/copilot.lua",
       cmd = "Copilot",
+      enabled = false,
       event = "InsertEnter",
       config = function()
         require("copilot").setup({
@@ -73,6 +74,23 @@ local plugin_specs = {
           },
         })
       end,
+  },
+
+  -- Golang
+  {
+    "ray-x/go.nvim",
+    enabled = utils.executable("go"),
+    dependencies = {  -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = {"CmdlineEnter"},
+    ft = {"go", 'gomod'},
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
 
   {
@@ -370,6 +388,24 @@ local plugin_specs = {
     "sindrets/diffview.nvim"
   },
 
+  -- Lazygit
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+  },
+
   {
     "kevinhwang91/nvim-bqf",
     ft = "qf",
@@ -382,7 +418,7 @@ local plugin_specs = {
   { "preservim/vim-markdown", ft = { "markdown" } },
 
   -- Faster footnote generation
-  { "vim-pandoc/vim-markdownfootnotes", ft = { "markdown" } },
+  { "vim-pandoc/vim-markdownfootnotes", enabled = false, ft = { "markdown" } },
 
   -- Vim tabular plugin for manipulate tabular, required by markdown plugins
   { "godlygeek/tabular", cmd = { "Tabularize" } },
