@@ -1,6 +1,49 @@
 return {
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {},
+	},
+
 	-- Git
 	"lewis6991/gitsigns.nvim",
+	-- {
+	-- 	"nicolasgb/jj.nvim",
+	-- 	config = function()
+	-- 		require("jj").setup({})
+	-- 	end,
+	-- },
+	"MunifTanjim/nui.nvim",
+	{
+		"julienvincent/hunk.nvim",
+		cmd = { "DiffEditor" },
+		config = function()
+			require("hunk").setup()
+		end,
+	},
+
+	{
+		"luukvbaal/statuscol.nvim",
+		config = function()
+			local builtin = require("statuscol.builtin")
+			require("statuscol").setup({
+				-- configuration goes here, for example:
+				-- relculright = true,
+				segments = {
+					{ text = { "%C" }, click = "v:lua.ScFa" },
+					{ text = { "%s" }, click = "v:lua.ScSa" },
+					{
+						text = { builtin.lnumfunc },
+						condition = { true, builtin.not_empty },
+						click = "v:lua.ScLa",
+					},
+					{ text = { "│" }, hl = "LineNr" },
+				},
+			})
+		end,
+	},
 
 	-- Editing
 	"numToStr/Comment.nvim",
@@ -13,7 +56,6 @@ return {
 			require("which-key").setup()
 		end,
 	},
-
 	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
@@ -25,49 +67,7 @@ return {
 			},
 		},
 	},
+
 	{ "nvim-treesitter/nvim-treesitter", branch = "master", lazy = false, build = ":TSUpdate" },
-	{
-		"stevearc/conform.nvim",
-		event = { "BufWritePre" },
-		cmd = { "ConformInfo" },
-		keys = {
-			{
-				-- Customize or remove this keymap to your liking
-				"<leader>gf",
-				function()
-					require("conform").format({ async = true })
-				end,
-				mode = "",
-				desc = "Format buffer",
-			},
-		},
-		-- This will provide type hinting with LuaLS
-		---@module "conform"
-		---@type conform.setupOpts
-		opts = {
-			-- Define your formatters
-			formatters_by_ft = {
-				lua = { "stylua" },
-				python = { "ruff" },
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-			},
-			-- Set default options
-			default_format_opts = {
-				lsp_format = "fallback",
-			},
-			-- Set up format-on-save
-			format_on_save = { timeout_ms = 500 },
-			-- Customize formatters
-			formatters = {
-				shfmt = {
-					append_args = { "-i", "2" },
-				},
-			},
-		},
-		init = function()
-			-- If you want the formatexpr, here is the place to set it
-			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-		end,
-	},
 	{ "tpope/vim-sleuth" },
 }

@@ -27,33 +27,11 @@ if vim.fn.exists("g:vscode") ~= 0 then
 		false
 	)
 else
-	-- Load options
-	require("config.options")
-
 	vim.g.mapleader = " "
 	vim.g.maplocalleader = "\\"
 
-	-- Load lazy.nvim and plugins
-	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-	if not vim.loop.fs_stat(lazypath) then
-		vim.fn.system({
-			"git",
-			"clone",
-			"--filter=blob:none",
-			"https://github.com/folke/lazy.nvim.git",
-			"--branch=stable",
-			lazypath,
-		})
-	end
-	vim.opt.rtp:prepend(lazypath)
+	require("options")
+	require("lazy-setup")
 
-	require("lazy").setup("plugins")
-
-	-- Load configurations after plugins
-	require("config.lsp")
-	require("config.completion")
-	require("config.keymaps")
-
-	-- Set colorscheme
-	vim.cmd("colorscheme everforest")
+	require("config")
 end
