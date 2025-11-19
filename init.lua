@@ -31,7 +31,7 @@ else
 	require("config.options")
 
 	vim.g.mapleader = " "
-	vim.g.maplocalleader = " "
+	vim.g.maplocalleader = "\\"
 
 	-- Load lazy.nvim and plugins
 	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -52,7 +52,7 @@ else
 	-- Load configurations after plugins
 	require("config.lsp")
 	require("config.completion")
-	--require("config.keymaps")
+	require("config.keymaps")
 
 	-- Set colorscheme
 	vim.cmd("colorscheme everforest")
