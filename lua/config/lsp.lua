@@ -84,6 +84,7 @@ vim.lsp.enable("helm_ls")
 vim.lsp.enable("bashls")
 vim.lsp.enable("fish_lsp")
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("fennel_ls")
 
 ---------------------
 ---- Diagnostics ----

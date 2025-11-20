@@ -1,4 +1,5 @@
 return {
+	{ "Olical/nfnl", ft = "fennel" },
 	{
 		"folke/snacks.nvim",
 		priority = 1000,

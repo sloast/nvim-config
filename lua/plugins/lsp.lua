@@ -37,6 +37,7 @@ return {
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 				sh = { "shfmt" },
 				bash = { "shfmt" },
+				fennel = { "fnlfmt" },
 			},
 			-- Set default options
 			default_format_opts = {
@@ -48,6 +49,11 @@ return {
 			formatters = {
 				shfmt = {
 					append_args = { "-i", "2" },
+				},
+				fnlfmt = {
+					command = "fnlfmt",
+					args = { "-" },
+					stdin = true,
 				},
 			},
 		},
