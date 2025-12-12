@@ -6,20 +6,22 @@ vim.lsp.config("pyright", {
 	settings = {
 		python = {
 			analysis = {
-				typeCheckingMode = "strict",
+				typeCheckingMode = "normal",
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
 			},
+		},
+		pyright = {
+			disableOrganizeImports = true,
 		},
 	},
 })
 
 vim.lsp.config("ruff", {
-	--   init_options = {
-	--     settings = {
-	--       -- Ruff language server settings go here
-	--     }
-	--   }
+	-- init_options = {
+	-- 	settings = {
+	-- 	},
+	-- },
 })
 
 vim.lsp.enable("pyright")
@@ -38,6 +40,42 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 	desc = "LSP: Disable hover capability from Ruff",
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client == nil then
+			return
+		end
+		if client.name == "ruff" then
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.py",
+				callback = function()
+					-- Organize imports
+					vim.lsp.buf.code_action({
+						context = {
+							only = { "source.organizeImports" },
+							diagnostics = {},
+						},
+						apply = true,
+					})
+
+					-- Fix all auto-fixable issues
+					vim.lsp.buf.code_action({
+						context = {
+							only = { "source.fixAll" },
+							diagnostics = {},
+						},
+						apply = true,
+					})
+
+					-- Format
+					vim.lsp.buf.format({ async = false })
+				end,
+			})
+		end
+	end,
 })
 
 -- -- Enable LSP for filetypes
@@ -74,7 +112,7 @@ vim.lsp.config("helm_ls", {
 	},
 })
 
-vim.lsp.enable("yamlls")
+--vim.lsp.enable("yamlls")
 vim.lsp.enable("helm_ls")
 
 --------------------
@@ -85,6 +123,7 @@ vim.lsp.enable("bashls")
 vim.lsp.enable("fish_lsp")
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("fennel_ls")
+vim.lsp.enable("rust_analyzer")
 
 ---------------------
 ---- Diagnostics ----

@@ -33,7 +33,7 @@ return {
 			-- Define your formatters
 			formatters_by_ft = {
 				lua = { "stylua" },
-				-- python = { "ruff" },
+				-- python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 				sh = { "shfmt" },
 				bash = { "shfmt" },
@@ -60,6 +60,25 @@ return {
 		init = function()
 			-- If you want the formatexpr, here is the place to set it
 			vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+		end,
+	},
+	{
+		"aznhe21/actions-preview.nvim",
+		config = function()
+			require("actions-preview").setup({
+				diff = {
+					algorithm = "patience",
+					ignore_whitespace = true,
+				},
+				telescope = require("telescope.themes").get_ivy({ layout_config = {} }),
+			})
+
+			vim.keymap.set(
+				"n",
+				"<leader>ca",
+				require("actions-preview").code_actions,
+				{ desc = "Code action with preview" }
+			)
 		end,
 	},
 }

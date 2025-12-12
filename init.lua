@@ -26,6 +26,12 @@ if vim.fn.exists("g:vscode") ~= 0 then
     ]],
 		false
 	)
+
+	vim.g.mapleader = " "
+	vim.g.maplocalleader = "\\"
+
+	require("options")
+	require("config.keymaps")
 else
 	vim.g.mapleader = " "
 	vim.g.maplocalleader = "\\"
