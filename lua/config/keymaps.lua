@@ -1,11 +1,11 @@
 -- Normal mode
-vim.keymap.set("n", "BB", function()
+vim.keymap.set("n", "ZB", function()
 	if vim.bo.modified then
 		vim.cmd("write")
 	end
 	vim.cmd("bdelete")
 end, { desc = "Save and close buffer" })
-vim.keymap.set("n", "BQ", ":bdelete!<CR>", { desc = "Close buffer without saving" })
+vim.keymap.set("n", "ZX", ":bdelete!<CR>", { desc = "Close buffer without saving" })
 vim.keymap.set({ "n", "v" }, "+", '"+')
 
 -- Insert mode

@@ -161,6 +161,11 @@ return {
 						filetypes = { "png", "jpg", "jpeg", "gif", "webp", "pdf" },
 						find_cmd = "rg",
 					},
+					file_browser = {
+						collapse_dirs = true,
+						hide_parent_dir = true,
+						grouped = true,
+					},
 				},
 			})
 

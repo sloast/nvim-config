@@ -10,12 +10,15 @@ return {
 
 	-- Git
 	"lewis6991/gitsigns.nvim",
-	-- {
-	-- 	"nicolasgb/jj.nvim",
-	-- 	config = function()
-	-- 		require("jj").setup({})
-	-- 	end,
-	-- },
+	{
+		"nicolasgb/jj.nvim",
+		version = "*", -- Use latest stable release
+		-- Or from the main branch (uncomment the branch line and comment the version line)
+		-- branch = "main",
+		config = function()
+			require("jj").setup({})
+		end,
+	},
 	"MunifTanjim/nui.nvim",
 	{
 		"julienvincent/hunk.nvim",
@@ -24,7 +27,6 @@ return {
 			require("hunk").setup()
 		end,
 	},
-
 	{
 		"luukvbaal/statuscol.nvim",
 		config = function()
@@ -48,7 +50,13 @@ return {
 
 	-- Editing
 	"numToStr/Comment.nvim",
-	"windwp/nvim-autopairs",
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		-- use opts = {} for passing setup options
+		-- this is equivalent to setup({}) function
+	},
 	"tpope/vim-surround",
 	{
 		"folke/which-key.nvim",
@@ -67,6 +75,22 @@ return {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
 		},
+	},
+	{
+		"justinmk/vim-sneak",
+		keys = { "s", "S" },
+	},
+	{
+		"phaazon/hop.nvim",
+		branch = "v2",
+		keys = { "<leader>s", "<leader>w", "<leader>l" },
+		config = function()
+			local hop = require("hop")
+			hop.setup()
+			vim.keymap.set({ "n", "x", "o" }, "<leader>s", function()
+				hop.hint_words()
+			end, { desc = "Hop word" })
+		end,
 	},
 
 	{ "nvim-treesitter/nvim-treesitter", branch = "master", lazy = false, build = ":TSUpdate" },
