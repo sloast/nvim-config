@@ -63,6 +63,12 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("which-key").setup()
+			require("which-key").add({
+				{ "ys", group = "Surround" },
+				{ "cs", group = "Change surround" },
+				{ "ds", group = "Delete surround" },
+				{ "S", desc = "Surround selection", mode = "v" },
+			})
 		end,
 	},
 	{

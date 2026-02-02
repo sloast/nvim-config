@@ -115,6 +115,39 @@ vim.lsp.config("helm_ls", {
 --vim.lsp.enable("yamlls")
 vim.lsp.enable("helm_ls")
 
+----------------------------
+---- TypeScript/Angular ----
+----------------------------
+
+vim.lsp.config("ts_ls", {
+	init_options = {
+		plugins = {
+			{
+				name = "@angular/language-server",
+				location = vim.fn.stdpath("data") .. "/mason/packages/angular-language-server/node_modules/@angular/language-server",
+			},
+		},
+	},
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "html" },
+})
+
+vim.lsp.config("angularls", {
+	root_markers = { "angular.json" },
+})
+
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("angularls")
+
+----------------
+---- Java ------
+----------------
+
+vim.lsp.config("jdtls", {
+	root_markers = { "pom.xml", "build.gradle", "gradlew", ".git" },
+})
+
+vim.lsp.enable("jdtls")
+
 --------------------
 ------ Other -------
 --------------------
