@@ -2,16 +2,14 @@
 ---- Python ----
 ----------------
 
-vim.lsp.config("pyright", {
+vim.lsp.config("basedpyright", {
 	settings = {
-		python = {
+		basedpyright = {
 			analysis = {
-				typeCheckingMode = "normal",
+				typeCheckingMode = "recommended",
 				autoSearchPaths = true,
 				useLibraryCodeForTypes = true,
 			},
-		},
-		pyright = {
 			disableOrganizeImports = true,
 		},
 	},
@@ -24,7 +22,7 @@ vim.lsp.config("ruff", {
 	-- },
 })
 
-vim.lsp.enable("pyright")
+vim.lsp.enable("basedpyright")
 vim.lsp.enable("ruff")
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -35,7 +33,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			return
 		end
 		if client.name == "ruff" then
-			-- Disable hover in favor of Pyright
+			-- Disable hover in favor of basedpyright
 			client.server_capabilities.hoverProvider = false
 		end
 	end,
@@ -52,19 +50,19 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				pattern = "*.py",
 				callback = function()
-					-- Organize imports
+					-- Fix all auto-fixable issues
 					vim.lsp.buf.code_action({
 						context = {
-							only = { "source.organizeImports" },
+							only = { "source.fixAll" },
 							diagnostics = {},
 						},
 						apply = true,
 					})
 
-					-- Fix all auto-fixable issues
+					-- Organize imports
 					vim.lsp.buf.code_action({
 						context = {
-							only = { "source.fixAll" },
+							only = { "source.organizeImports" },
 							diagnostics = {},
 						},
 						apply = true,
@@ -82,7 +80,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- vim.api.nvim_create_autocmd("FileType", {
 -- 	pattern = "python",
 -- 	callback = function()
--- 		vim.lsp.enable("pyright")
+-- 		vim.lsp.enable("basedpyright")
 -- 		vim.lsp.enable("ruff")
 -- 	end,
 -- })
@@ -124,7 +122,8 @@ vim.lsp.config("ts_ls", {
 		plugins = {
 			{
 				name = "@angular/language-server",
-				location = vim.fn.stdpath("data") .. "/mason/packages/angular-language-server/node_modules/@angular/language-server",
+				location = vim.fn.stdpath("data")
+					.. "/mason/packages/angular-language-server/node_modules/@angular/language-server",
 			},
 		},
 	},
